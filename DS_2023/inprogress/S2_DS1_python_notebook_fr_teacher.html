@@ -1,0 +1,907 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "view-in-github"
+   },
+   "source": [
+    "<a href=\"https://colab.research.google.com/github/lionelalexandre/4TPU271/blob/main/S2_TD1_python_notebook_en_teacher.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "nv0Y9pmYeuWZ"
+   },
+   "source": [
+    "# <span style=\"color:blue\"> <center>Teacher / DS : 4TPU271 & 4TPU279U $-$ Licence 1ère année $-$ printemps 2023</center></span>\n",
+    "# <center>Méthodes numériques pour les Sciences</center>\n",
+    "# <hr style=\"border:1px solid black\"><center>DS1 : Introduction à la programmation Python </center><hr style=\"border:1px solid black\">\n",
+    "</br>\n",
+    "\n",
+    "Déposer ce fichier **notebook** complété ou un fichier **python** édité via Spyder, sur la page\n",
+    "[Moodle](https://moodle1.u-bordeaux.fr/course/view.php?id=12271) consacrée à votre demi-groupe.\n",
+    "\n",
+    "\n",
+    "Renommer le fichier suivant : \n",
+    "- `DST_NomPrenom_S2.ipynb` pour un fichier *jupyter-notebook*\n",
+    "\n",
+    "ou \n",
+    "\n",
+    "- `DST_NomPrenom_S2.py` pour un fichier *python* pur\n",
+    "\n",
+    "<div class=\"alert alert-block alert-warning\">\n",
+    "<b>ATTENTION :</b> Abolir totalement l’emploi des espaces, lettres accentuées et autres symboles\n",
+    "dans le nom du fichier !\n",
+    "</div>\n",
+    "\n",
+    "**Les points suivants seront pris en compte pour l'évaluation :**\n",
+    "- respect des consignes\n",
+    "- mise en forme des figures (légendes, unités, titre etc...)\n",
+    "- clarté des programmes et mise en page\n",
+    "\n",
+    "</br>\n",
+    "<div style=\"text-align: right\"> Credits: R. Boisgard, L. Truflandier, Philippe Paillou, Julien Burgin, Sara Zein, Leo Delmarre, Simon Villain-Guillot, Louise Marinho </div>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "0FoW8o7beuWd"
+   },
+   "source": [
+    "## <hr style=\"border:1px solid black\"> Exercice 1 : algorithmique <hr style=\"border:1px solid black\">"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On souhaite évaluer numériquement pour $a\\in\\mathbb{R}:$ $e^a$ en utilisant la série suivante :\n",
+    "$$e^a=\\sum_{n=0}^{+\\infty}\\frac{a^n}{n!}$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1. Donner $n\\in[1,+\\infty[$ écrire un programme permettant le calcul de $n!$ Tester le programme avec $n=10$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "n = 10\n",
+    "\n",
+    "fact = 1\n",
+    "for i in range(1,n+1):\n",
+    "    fact = fact*i\n",
+    "\n",
+    "print(fact)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2. Comparer votre résultat à la valeur délivrée par la fonction `numpy.math.factorial` "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "numpy.math.factorial(10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3. Dans ce même programme s'assurer que lorsque $n=0$ alors $0!=1$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution : ici pas de problème**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "n = 0\n",
+    "\n",
+    "fact = 1\n",
+    "for i in range(1,n+1):\n",
+    "    fact = fact*i\n",
+    "\n",
+    "print(fact)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "4. A partir de ce programme écrire une fonction appelée `factorial` qui prends pour argument $n$ et renvoie $n!$ Tester cette fonction."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def factorial(n):\n",
+    "    fact = 1\n",
+    "    for i in range(1,n+1):\n",
+    "        fact = fact*i\n",
+    "    return fact\n",
+    "\n",
+    "res = factorial(n=10)\n",
+    "print(res)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "g3rd8ra-euWe"
+   },
+   "source": [
+    "5. En utilisant la fonction `factorial` et une boucle `for` calculer $e^1$ à partir des 10 premiers termes de la série. Comparer cette valeur à la valeur attendue et faire afficher l'erreur. *Remarque: si vous n'avez pas réussi à écrire la fonction `factorial` vous pouvez utiliser la fonction `numpy.math.factorial`*."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "0_ujBldHeuWf",
+    "outputId": "b09ff60c-0cfe-4d27-fc55-f4bb074fbbac"
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import exp\n",
+    "\n",
+    "a   = 1\n",
+    "res = 0\n",
+    "for n in range(10):\n",
+    "    res = res + a**n/factorial(n)\n",
+    "    \n",
+    "print('exp(1) serie =',res   )\n",
+    "print('exp(1) numpy =',exp(a))\n",
+    "print('error        =',exp(a)-res)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "tP2WeJ1OeuWg",
+    "outputId": "f9b64aae-5a70-4ee9-c1e4-f07ca053fc55",
+    "scrolled": false
+   },
+   "source": [
+    "6. ***Bonus :*** A l'aide d'une structure `while` reprendre la question 4. avec pour condition le fait que la\n",
+    "sommation doit s'arrêter lorsque la différence absolue entre les approximations de $e^a$ à l'itération $n$ et $n+1$, est inférieure à une valeur seuil $\\epsilon$. On prendra $a=2$ et $\\epsilon=10^{-4}$. Faire afficher la valeur finale de $n$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "oL9jUVADeuWg",
+    "outputId": "8de44826-aaa2-4aa9-d25b-4551119a5cf5",
+    "scrolled": false
+   },
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "id": "o3bpgfxUeuWh",
+    "outputId": "be5ea5c2-cd4e-4f65-d8d5-6f092ab37cdf",
+    "scrolled": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import exp\n",
+    "\n",
+    "eps = 1e-4\n",
+    "err = eps*10\n",
+    "\n",
+    "a   = 2\n",
+    "n   = 0\n",
+    "res = 0\n",
+    "res_old = 0\n",
+    "\n",
+    "while ( err > eps ):\n",
+    "    res = res + a**n/factorial(n)\n",
+    "    n   = n + 1\n",
+    "    err = abs(res_old - res)\n",
+    "    res_old = res\n",
+    "\n",
+    "print('n =',n)\n",
+    "print('exp(2) serie =',res   )\n",
+    "print('exp(2) numpy =',exp(a))\n",
+    "print('error        =',exp(a)-res)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## <hr style=\"border:1px solid black\"> Exercice 2 : potentiel de Morse et représentation graphique <hr style=\"border:1px solid black\">"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On souhaite étudier le potentiel de Morse de la molécule de Cl$_2$ décrivant la variation d'énergie potentielle en fonction de la distance $x$ entre les 2 atomes de chlore. Son expression est donnée par :\n",
+    "$$ V(x) = D_e \\left( 1 - e^{-\\beta (x-x_{e})}\\right)^2$$\n",
+    "On remarquera :\n",
+    "- $\\lim_{x\\rightarrow\\infty}V(x) = D_e$ où $D_e$ correspond à la profondeur du puit de potentiel.\n",
+    "- $V(x_e) = 0$ où $x_e$ correspond à la distance d'équilibre des 2 atomes (minimum d'énergie potentielle).\n",
+    "\n",
+    "Pour Cl$_2$ on donne : $D_e = 2.514$ eV, $x_e=2.0$ Ang et $\\beta=2.0$ Ang$^{-1}$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1. Représenter graphiquement le potentiel de Morse. Respecter les consignes suivantes pour le tracé :\n",
+    "    - En utilisant la fonction `linspace`, on representera $V$ en fonction de $x$ pour $x\\in[1.4,5.0]$ avec 256 point de discrétisation.\n",
+    "    - On légendera les axes avec les unités.\n",
+    "    - On fera apparaître un axe horizontal en pointillé noir correspondant à $D_e$.\n",
+    "    - On localisera $x_e$ par un cercle noir sur la courbe.\n",
+    "    - Le domaine du tracé sera borné : suivant l'axe des absisses de 1.3 à 5.2, et de -0.2 à 5.0\n",
+    "    suivant l'axe des ordonnées. On utilisera par les fonctions `xlim` et `ylim` comme proposé ci-dessous."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# Limites suivant x pour le tracé \n",
+    "#plt.xlim( 1.3,5.2)\n",
+    "\n",
+    "# Limites suivant y pour le tracé \n",
+    "#plt.ylim(-0.2,5.0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import exp, linspace\n",
+    "from scipy.constants import e, Avogadro\n",
+    "\n",
+    "# Rq: l'utilisation d'une fonction pour le potentiel de Morse n'est pas obligatoire\n",
+    "def pot_morse(x,De,beta,xe):\n",
+    "    return De*(1 - exp(-beta*(x-xe)))**2\n",
+    "\n",
+    "De   = 2.514 # eV\n",
+    "beta = 2.00  # Ang^-1\n",
+    "xe   = 2.00  # Ang"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "x = linspace(1.4,5,256)\n",
+    "\n",
+    "# Tracé du Potentiel de Morse \n",
+    "V = pot_morse(x,De,beta,xe)\n",
+    "plt.plot(x,V)\n",
+    "\n",
+    "# Tracé de l'asymptote horizontale\n",
+    "De_plot = linspace(De,De,256)\n",
+    "plt.plot(x,De_plot,color='black',linestyle=':')\n",
+    "\n",
+    "# Localisation de la distance d'équilibre\n",
+    "plt.plot(xe,0.0,marker='o',linestyle='',color='black',label='$x_e$')\n",
+    "\n",
+    "plt.xlabel('$x$ in Ang.')\n",
+    "plt.ylabel('$V(x)$ in eV')\n",
+    "\n",
+    "plt.xlim( 1.3,5.2)\n",
+    "plt.ylim(-0.2,5.0)\n",
+    "plt.legend()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Pour des faibles variations de $x$ au voisinage de $x_e$, on peut assimiler le potentiel de Morse comme\n",
+    "l'énergie potentielle d'un oscillateur harmonique. Le développement au deuxième ordre de Taylor de $V(x)$ au voisinnage the $x_e$ permet d'approximer $V(x)$ par :\n",
+    "$$ V_\\text{harm}(x) = \\beta^2 D_e(x-x_e)^2$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2. Reprendre le graphique précédent et ajouter le potentiel harmonique $V_\\text{harm}(x)$. Faire afficher la légende de chaque graphique. Ne pas oublier de borner la représentation comme dans la question précédente. Légender les courbes."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "x = linspace(1.4,5,256)\n",
+    "V = pot_morse(x,De,beta,xe)\n",
+    "\n",
+    "plt.plot(x,V,label='Potentiel de Morse')\n",
+    "plt.xlabel('$x$ in Ang.')\n",
+    "plt.ylabel('$V(x)$ in kJ.mol$^{-1}$')\n",
+    "\n",
+    "De_plot = linspace(De,De,256)\n",
+    "plt.plot(x,De_plot,color='black',linestyle=':')\n",
+    "plt.plot(xe,0.0,marker='o',color='black',label='$x_e$')\n",
+    "\n",
+    "V_harm = beta**2*De*(x - xe)**2\n",
+    "plt.plot(x,V_harm,label='$V_\\mathrm{harm}$')\n",
+    "\n",
+    "plt.xlim(1.3,5.2)\n",
+    "plt.ylim(-0.2,5)\n",
+    "plt.legend()\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3. Représenter l'écart $V(x) - V_\\text{harm}(x)$ sur un nouveau graphique pour $x\\in[1.95,2.05]$. Légender les axes."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "x = linspace(1.95,2.05,256)\n",
+    "V = pot_morse(x,De,beta,xe)\n",
+    "V_harm = beta**2*De*(x - xe)**2\n",
+    "\n",
+    "plt.plot(x,V-V_harm)\n",
+    "plt.xlabel('$x$ in Ang.')\n",
+    "plt.ylabel('$V(x)-V_\\mathrm{harm}(x)$ in eV')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "O8OHxE2reuW6"
+   },
+   "source": [
+    "<hr style=\"border:1px solid grey\">"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## <hr style=\"border:1px solid black\"> Exercice 2 : équation de la dynamique <hr style=\"border:1px solid black\">"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On souhaite étudier le mouvement d'un des atomes de chlore soumis soumis à la force dérivant du potentiel harmonique $V_\\text{harm}(x)$ tel que : $$\\vec{f}=-\\frac{dV_\\text{harm}}{dx}\\:\\vec{e}_x=-k(x-x_e)\\:\\vec{e}_x \\quad\\quad\\text{(1)}$$\n",
+    "avec $k=2\\beta^2D_e$ la constante de force de la liaison Cl$-$Cl. Pour l'intégration numérique des équations du mouvement, on utilisera la méthode de Hooke-Newton décrite ci-dessous :\n",
+    "$$\\begin{align}\n",
+    "x(t_{i+1}) &= x(t_i) + h\\;v(t_i) \\quad\\quad\\text{(2)}\\\\   \n",
+    "v(t_{i+1}) &= v(t_i)+\\frac{h}m f\\left(x(t_{i+1})\\right)\\quad\\quad\\text{(3)} \\\\ \n",
+    "\\end{align}$$\n",
+    "avec $m=35.5$ g/mol, la masse de l'atome Cl et $h$ le pas de temps en unité de temps réduite (utr ; 1 utr $\\simeq 10^{-14}$ s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1. A partir des constantes $\\beta$ et $D_e$ données précédemment, calculer la valeur $k$ en eV$\\cdot$Ang$^{-2}$ et N$\\cdot$m$^{-1}$.\n",
+    "Pour les conversions, on utilisera les constantes physiques de la librarie `scipy.constants`. Par la suite on prendra $k=20.112$ eV$\\cdot$Ang$^{-2}$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from scipy.constants import e\n",
+    "\n",
+    "De   = 2.514     # eV\n",
+    "beta = 2.00      # Ang^-1\n",
+    "\n",
+    "k = 2*beta**2*De\n",
+    "print(' k = %.3f eV.Ang^-2'%k)\n",
+    "\n",
+    "k = 2*beta**2*De * e * (1e+10)**2\n",
+    "print(' k = %.1f N.m^-1'%k)\n",
+    "\n",
+    "k = 2*beta**2*De"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "2. Utiliser l'algorithme de Hook-Newton pour simuler le déplacement de l'atome de Cl autour de sa position d'équilibre. Le temps d'étude sera de $t_\\textrm{max}=16.6836$ utr, avec un pas de discrétisation $h=0.01$. On utilisera les conditions initiales $x(t_0)=2.5$ Ang et $v(t_0)=0$ Ang/utr. On prendra une masse $m=35.5$ g/mol.\n",
+    "\n",
+    "***Pour vous guider nous avons repris les différentes étapes du TD4 ci-dessous :***"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On commence par définir la force, cf. **équation (1)**, *via* une fonction `f`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(x):\n",
+    "    xe =  2.0\n",
+    "    k  = 20.112\n",
+    "    return - k*(x - xe)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On discrétise l'axe du temps :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import pi, arange, zeros, cos, sqrt\n",
+    "\n",
+    "tmin = 0.0\n",
+    "tmax = 16.6836\n",
+    "h    = 0.001\n",
+    "t    = arange(tmin,tmax,h)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On initialise $m$ et les tableaux pour $x$ et $v$ ainsi que les conditions initiales :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = 35.5\n",
+    "\n",
+    "x = zeros(len(t))\n",
+    "v = zeros(len(t))\n",
+    "\n",
+    "x0 = 2.5\n",
+    "v0 = 0.0"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On applique la relation de récurrence de Euler à $x$ et à $v$ :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x[0] = x0\n",
+    "v[0] = v0\n",
+    "for i in range(len(t)-1):\n",
+    "    x[i+1] = x[i] + h*v[i]\n",
+    "    v[i+1] = v[i] + h*f(x[i+1])/m"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Tracer des lois horaires $x(t)$ et $v(t)$ et de la solution analytique :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pylab as plt\n",
+    "\n",
+    "plt.plot(t,x,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$x(t)$ (in Ang)')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.plot(t,v,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$v(t)$ (in Ang)')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Tracer du portrait de phase $(x(t),v(t))$ et repérage des conditions initiales :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.plot(x,v,marker='')\n",
+    "plt.plot(x0,v0,marker='o')\n",
+    "plt.xlabel('$x(t)$')\n",
+    "plt.ylabel('$v(t)$')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3. Reprendre la résolution des équations de la dynamique pour une force dérivant du potentiel de Morse. L'expression est donnée ci-dessous :\n",
+    "$$\\vec{f}=-\\frac{dV}{dx}\\:\\vec{e}_x=-2\\beta D_e\\left( e^{-\\beta (x-x_e)} - e^{-2\\beta (x-xe)} \\right) \\:\\vec{e}_x \\quad\\quad\\text{(4)}$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On commence par définir la force, cf. équation (1), *via* une fonction `f`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import exp\n",
+    "\n",
+    "def f(x):\n",
+    "    xe   =  2.0\n",
+    "    beta =  2.0\n",
+    "    De   = 2.514 \n",
+    "    return - 2*beta*De*( exp(-beta*(x-xe)) - exp(-2*beta*(x-xe)) ) \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On discrétise l'axe du temps :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import pi, arange, zeros, cos, sqrt\n",
+    "\n",
+    "tmin = 0.0\n",
+    "tmax = 16.6836\n",
+    "h    = 0.001\n",
+    "t    = arange(tmin,tmax,h)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On initialise $m$ et les tableaux pour $x$ et $v$ ainsi que les conditions initiales :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m = 35.5\n",
+    "\n",
+    "x = zeros(len(t))\n",
+    "v = zeros(len(t))\n",
+    "\n",
+    "x0 = 2.5\n",
+    "v0 = 0.0"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> On applique la relation de récurrence de Euler à $x$ et à $v$ :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x[0] = x0\n",
+    "v[0] = v0\n",
+    "for i in range(len(t)-1):\n",
+    "    x[i+1] = x[i] + h*v[i]\n",
+    "    v[i+1] = v[i] + h*f(x[i+1])/m"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Tracer des lois horaires $x(t)$ et $v(t)$ et de la solution analytique :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pylab as plt\n",
+    "\n",
+    "plt.plot(t,x,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$x(t)$ (in Ang)')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.plot(t,v,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$v(t)$ (in Ang)')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Tracer du portrait de phase $(x(t),v(t))$ et repérage des conditions initiales :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.plot(x,v,marker='')\n",
+    "plt.plot(x0,v0,marker='o')\n",
+    "plt.xlabel('$x(t)$')\n",
+    "plt.ylabel('$v(t)$')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "3. Reprendre la résolution des équations de la dynamique pour une force dérivant du potentiel de Morse. L'expression est donnée ci-dessous :\n",
+    "$$\\vec{f}=-\\frac{dV}{dx}\\:\\vec{e}_x=-2\\beta D_e\\left( e^{-\\beta (x-x_e)} - e^{-2\\beta (x-xe)} \\right) \\:\\vec{e}_x \\quad\\quad\\text{(4)}$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<span style=\"color:red\">**solution :**</span>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import pi, arange, zeros, cos, sqrt\n",
+    "import matplotlib.pylab as plt\n",
+    "\n",
+    "def f(x):\n",
+    "    xe   =  2.0\n",
+    "    beta =  2.0\n",
+    "    De   = 2.514 \n",
+    "    return - 2*beta*De*( exp(-beta*(x-xe)) - exp(-2*beta*(x-xe)) ) \n",
+    "\n",
+    "\n",
+    "tmin = 0.0\n",
+    "tmax = 16.6836\n",
+    "h    = 0.001\n",
+    "t    = arange(tmin,tmax,h)\n",
+    "\n",
+    "m = 35.5\n",
+    "\n",
+    "x = zeros(len(t))\n",
+    "v = zeros(len(t))\n",
+    "\n",
+    "x0 = 2.5\n",
+    "v0 = 0.0\n",
+    "\n",
+    "x[0] = x0\n",
+    "v[0] = v0\n",
+    "for i in range(len(t)-1):\n",
+    "    x[i+1] = x[i] + h*v[i]\n",
+    "    v[i+1] = v[i] + h*f(x[i+1])/m\n",
+    "\n",
+    "plt.figure(0)\n",
+    "plt.plot(t,x,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$x(t)$ (in Ang)')\n",
+    "\n",
+    "plt.figure(1)\n",
+    "plt.plot(t,v,marker='')\n",
+    "plt.xlabel('$t$ (in utr)')\n",
+    "plt.ylabel('$v(t)$ (in Ang)')\n",
+    "\n",
+    "plt.figure(2)\n",
+    "plt.plot(x,v,marker='')\n",
+    "plt.plot(x0,v0,marker='o')\n",
+    "plt.xlabel('$x(t)$')\n",
+    "plt.ylabel('$v(t)$')"
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Diaporama",
+  "colab": {
+   "include_colab_link": true,
+   "provenance": []
+  },
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}
